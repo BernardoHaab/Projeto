@@ -12,6 +12,16 @@ module.exports = {
     } 
   },
 
+  test: {
+    client: 'mysql',
+    connection: {
+      host: '127.0.0.1',
+      user: 'backend',
+      password: '',
+      database: 'teste_projeto'
+    } 
+  },
+
   staging: {
     client: 'postgresql',
     connection: {
