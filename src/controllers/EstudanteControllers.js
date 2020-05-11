@@ -20,20 +20,7 @@ module.exports = {
       idSerie,
       fotoUrl,
       fotoKey,
-      novaEscola = {
-        nome,
-        tipo,
-      },
     } = req.body;
-
-    if (novaEscola.nome != null && novaEscola.tipo != null && idEscola == 0) {
-      const { nome, tipo } = novaEscola;
-      const data = await EscolaControllers.create(nome, tipo);
-
-      const { idEscola: novoID } = data;
-
-      idEscola = novoID;
-    }
 
     const idEstudante = generateUniqueId();
     
