@@ -4,7 +4,7 @@ module.exports = {
   async index(req, res) {
     await connection
       .select("*")
-      .from("estado")
+      .from("state")
       .then((data) => res.json(data))
       .catch((err) => res.json(err));
   },

@@ -1,69 +1,69 @@
 const routes = require("express").Router();
 const { celebrate, Joi, Segments, errors } = require("celebrate");
-const novaEscola = require("./middleware/novaEscola");
+const NewSchool = require("./middleware/NewSchool");
 
-const EstudanteControllers = require("../src/controllers/EstudanteControllers");
-const DocenteControllers = require("../src/controllers/DocenteControllers");
-const EscolaControllers = require("../src/controllers/EscolaControllers");
-const EstadoControllers = require("../src/controllers/EstadoControllers");
-const MunicipioControllers = require("../src/controllers/MunicipioControllers");
+const StudentControllers = require("./controllers/StudentControllers");
+const TeacherControllers = require("./controllers/TeacherControllers");
+const SchoolControllers = require("./controllers/SchoolControllers");
+const StateControllers = require("./controllers/StateControllers");
+const CityControllers = require("./controllers/CityControllers");
+const SessionControllers = require("./controllers/SessionControllers");
 
-routes.post(
-  "/estudante",
-  novaEscola,
-  celebrate({
+routes.post("/student",NewSchool,celebrate({
     [Segments.BODY]: Joi.object().keys({
-      nome: Joi.string().required(),
+      name: Joi.string().required(),
       email: Joi.string().email().required(),
-      senha: Joi.string().required(),
-      idEstado: Joi.number().min(1).max(4).required(),
-      idMunicipio: Joi.number().min(1).max(11).required(),
-      idEscola: Joi.number().min(1).required(),
-      idSerie: Joi.number().min(1).max(6).required(),
-      fotoUrl: Joi.string(),
-      fotoKey: Joi.string(),
-      novaEscola: {
-        nome: Joi.string(),
-        tipo: Joi.boolean(),
+      password: Joi.string().required(),
+      idState: Joi.number().min(1).max(4).required(),
+      idCity: Joi.number().min(1).max(11).required(),
+      idSchool: Joi.number().min(1).required(),
+      idGrade: Joi.number().min(1).max(6).required(),
+      photoURL: Joi.string(),
+      photoKey: Joi.string(),
+      newSchool: {
+        name: Joi.string(),
+        type: Joi.boolean(),
       },
     }),
-  }),
-  EstudanteControllers.create
+  }), StudentControllers.create
 );
-routes.post(
-  "/docente",
-  novaEscola,
-  celebrate({
+routes.post("/teacher", NewSchool,celebrate({
     [Segments.BODY]: Joi.object().keys({
-      nome: Joi.string().required(),
+      name: Joi.string().required(),
       email: Joi.string().email().required(),
-      senha: Joi.string().required(),
-      formacao: Joi.string().required(),
-      idEstado: Joi.number().min(1).max(4).required(),
-      idMunicipio: Joi.number().min(1).max(11).required(),
-      idEscola: Joi.number().min(1).required(),
-      fotoUrl: Joi.string(),
-      fotoKey: Joi.string(),
-      novaEscola: {
-        nome: Joi.string(),
-        tipo: Joi.boolean(),
+      password: Joi.string().required(),
+      formation: Joi.string().required(),
+      idState: Joi.number().min(1).max(4).required(),
+      idCity: Joi.number().min(1).max(11).required(),
+      idSchool: Joi.number().min(1).required(),
+      photoURL: Joi.string(),
+      photoKey: Joi.string(),
+      newSchool: {
+        name: Joi.string(),
+        type: Joi.boolean(),
       },
     }),
-  }),
-  DocenteControllers.create
+  }), TeacherControllers.create
 );
 
-routes.get("/escolas", celebrate({
+routes.get("/school", celebrate({
     [Segments.BODY]: Joi.object().keys({
-        nome: Joi.string(),
+        name: Joi.string(),
     })
-}) ,EscolaControllers.index);
+}), SchoolControllers.index);
 
-routes.get("/estados", EstadoControllers.index);
-routes.get("/municipios", celebrate({
+routes.get("/state", StateControllers.index);
+routes.get("/city", celebrate({
     [Segments.BODY]: Joi.object().keys({
-        idEstado: Joi.number().min(1).max(4).required(),
+        idState: Joi.number().min(1).max(4).required(),
     })
-}) ,MunicipioControllers.index);
+}), CityControllers.index);
+
+routes.post('/session', celebrate({
+  [Segments.BODY]: Joi.object().keys({
+    email: Joi.string().email().required(),
+    password: Joi.string().required()
+  })
+}) , SessionControllers.creat)
 
 module.exports = routes;

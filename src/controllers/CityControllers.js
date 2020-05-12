@@ -2,18 +2,18 @@ const connection = require("../connection");
 
 module.exports = {
   async index(req, res) {
-    const { idEstado } = req.body;
+    const { idState } = req.body;
 
-    if (idEstado) {
-      await connection("municipio")
-        .where("idEstado", idEstado)
-        .select("idEstado", "nome")
+    if (idState) {
+      await connection("city")
+        .where("idState", idState)
+        .select("idState", "name")
         .then((data) => res.json(data))
         .catch((err) => res.json(err));
     } else {
       await connection
-        .select("idEstado", "nome")
-        .from("municipio")
+        .select("idState", "name")
+        .from("city")
         .then((data) => res.json(data))
         .catch((err) => res.json(err));
     }
