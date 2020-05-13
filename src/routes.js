@@ -8,6 +8,7 @@ const SchoolControllers = require("./controllers/SchoolControllers");
 const StateControllers = require("./controllers/StateControllers");
 const CityControllers = require("./controllers/CityControllers");
 const SessionControllers = require("./controllers/SessionControllers");
+const PostControllers = require("./controllers/PostControllers");
 
 routes.post("/student",NewSchool,celebrate({
     [Segments.BODY]: Joi.object().keys({
@@ -64,6 +65,12 @@ routes.post('/session', celebrate({
     email: Joi.string().email().required(),
     password: Joi.string().required()
   })
-}) , SessionControllers.creat)
+}) , SessionControllers.create)
+
+routes.post('/post',celebrate({
+  [Segments.HEADERS]: Joi.object({
+    session_id: Joi.string().required()
+  }).unknown()
+}) ,PostControllers.create)
 
 module.exports = routes;

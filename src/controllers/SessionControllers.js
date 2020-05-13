@@ -1,7 +1,7 @@
 const connection = require("../connection");
 
 module.exports = {
-  async creat(req, res) {
+  async create(req, res) {
     const { email, password } = req.body;
 
     let info;
